@@ -1,9 +1,11 @@
 'use client'
-import React from "react";
-import { NewTask } from './components'
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { NewTask, Task } from './components'
+import TaskContext from './TaskContext';
 
 export default function Home() {
   const [show, setShow] = React.useState(false);
+  const [tasks, setTasks] = useContext(TaskContext);
 
   function show_new(){
     setShow(true)
@@ -12,6 +14,17 @@ export default function Home() {
   const hide_new = () => {
     setShow(false)
   }
+
+  const addTask = (task) => {
+    setTasks([...tasks, task]);
+  };
+
+  useEffect(() => {
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    if (tasks) {
+     setTasks(tasks);
+    }
+  }, []);
 
   return (
     <main className="w-9/12 flex">
@@ -23,6 +36,13 @@ export default function Home() {
         <div className='mt-8'>
           <input type='text' placeholder='Add new task' className='border w-full h-[45px] rounded'  readOnly onClick={show_new}/>
         </div>
+        {
+          tasks.map(task=>{
+              return(<Task task={task}/>)
+          }
+            
+          )
+        }
       </div>
       {/* New task side bar */}
       {
