@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { createContext, useState } from 'react';
 
 const TaskContext = createContext();
@@ -6,15 +6,15 @@ const TaskContext = createContext();
 export default TaskContext;
 
 export const TaskProvider = ({ children }) => {
-  const [tasks, setTasks] = useState([]);
+  const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+  const storedLists = JSON.parse(localStorage.getItem('lists') || '[{"name":"Personal", "color": "bg-blue-400", "key": "0"}]');
+
+  const [tasks, setTasks] = useState(storedTasks);
+  const [lists, setLists] = useState(storedLists);
 
   return (
-    <TaskContext.Provider value={[ tasks, setTasks ]}>
+    <TaskContext.Provider value={[ tasks, setTasks, lists, setLists ]}>
       {children}
     </TaskContext.Provider>
   );
 };
-
-export const getTask = () => {
-  
-}

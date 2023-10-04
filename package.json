@@ -12,7 +12,8 @@
     "bootstrap-icons": "^1.11.1",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "autoprefixer": "latest",
