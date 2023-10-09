@@ -73,7 +73,6 @@ const AddList = ({onClose}) => {
   const selectColor = (value) => setColor(value);
   
   const handleInput = (e) =>{
-    console.log(e.target.value)
     if (e.key === "Enter") {
       onClose()
       setName(e.target.value)
@@ -89,7 +88,13 @@ const AddList = ({onClose}) => {
     <div className="border rounded h-[100px] p-2 mt-5">
       <div className="px-2 border flex items-baseline">
         <div className={`${color} w-4 h-4 rounded`}/>
-        <input placeholder="List name" className="bg-inherit p-2 outline-none" onChange={(e) => setName(e.target.value)} onKeyDown={(e)=>handleInput(e)}/>
+        <input
+          placeholder="List name"
+          className="bg-inherit p-2 outline-none"
+          onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e)=>handleInput(e)}
+          maxLength="25"
+        />
       </div>
       <ul className="mt-3 flex justify-between">
         <li className='bg-red-400 w-4 h-4 rounded' onClick={()=>selectColor("bg-red-400")}/>

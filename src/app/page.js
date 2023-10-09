@@ -4,15 +4,17 @@ import { NewTask, Task } from './components'
 import TaskContext from './TaskContext';
 
 export default function Home() {
-  const [show, setShow] = React.useState(false);
-  const [tasks, setTasks] = useContext(TaskContext);
+  const [showNewTask, setShowNewTask] = useState(false);
+  const [tasks, setTasks, lists] = useContext(TaskContext);
+  const [selectedTask, setSelectedTask] = useState(null);
 
-  function show_new(){
-    setShow(true)
+  const show_new=(task)=>{
+    setSelectedTask(task)
+    setShowNewTask(true)
   }
 
   const hide_new = () => {
-    setShow(false)
+    setShowNewTask(false)
   }
 
   const addTask = (task) => {
@@ -34,26 +36,21 @@ export default function Home() {
           Today
         </div>
         <div className='mt-8'>
-          <input type='text' placeholder='Add new task' className='border w-full h-[45px] rounded'  readOnly onClick={show_new}/>
+          <button className='border w-full h-[45px] rounded flex items-baseline my-2' onClick={() =>show_new()}>
+            <p className='mx-5 font-bold text-3xl'>+</p>
+            <p className='text-gray-400'>Add new task</p>
+          </button>
         </div>
         {
-          tasks.map(task=>{
-              return(<Task task={task}/>)
-          }
-            
+          tasks.map(task=>
+            <Task task={task} key={task.key} onEdit={() => show_new(task)}/>
           )
         }
       </div>
       {/* New task side bar */}
       {
-        show && (
-          <div className='bg-gray-100 w-2/3 px-5 py-3 rounded-xl'>
-            <div className=" flex justify-between text-3xl font-medium w-full items-center">
-              <h3 className="text-xl">Task:</h3> <i className="bi-x" onClick={hide_new}/>
-            </div>
-            <NewTask/>
-          </div>
-        )
+        showNewTask &&
+        <NewTask onClose={() => setShowNewTask(false)} details={selectedTask}/>
       }
     </main>
   )

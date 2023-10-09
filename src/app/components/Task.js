@@ -1,36 +1,48 @@
-import { list } from "postcss";
+'use client'
+import { useContext, useEffect, useState } from "react";
+import TaskContext from "../TaskContext";
 
-const Task = (details) => {
-  details = details.task;
+const Task = ({task, onEdit}) => {
+  // details = task;
+
   return(
-    <div className="flex justify-between px-5 py-3 border-b">
+    <div className="flex justify-between px-5 py-3 border-b" onClick={()=>onEdit()}>
       <div className="flex items-baseline">
-        <input type="checkbox" />
-        <div className="ml-5 font-medium">
-          <div className="">{details.title}</div>
-          <div className="flex text-xs mt-2 font-bold">
+        <input type="checkbox" onClick={(e) => e.stopPropagation()}/>
+        <div className="ml-5">
+          <div className="text-lg">{task.title}</div>
+          <div className="flex text-xs font-bold">
             {
-              list.date &&
+              task.date &&
               <div className="flex  border-r p-1 mr-2">
-                <i className="bi-calendar mr-2"/>
-                <p className="mr-2">22-03-23</p>
+                <i className="bi-calendar-x mr-2"/>
+                <p className="mr-2">{task.date}</p>
               </div>
             }
-            <div className="flex border-r p-1 mr-2">
-              <span className='mr-2 bg-gray-200 rounded px-1.5 text-xs h-fit font-medium'>0</span>
-              <p className="mr-2">Subtasks</p>
-            </div>
             {
-              details.list &&
-              <div className="flex border-r p-1 mr-2">
-                <span className='bg-red-300 w-3.5 h-3.5 rounded mr-2'/>
-                <p className="mr-2">{details.list.name}</p>
-              </div>
+              task.list && 
+              <TaskList listKey={task.list}/>
             }
           </div>
         </div>
       </div>
       <i className="bi-chevron-right" />
+    </div>
+  )
+}
+
+const TaskList = (listKey) => {
+  const [tasklist, setTasklist] = useState([]);
+  const [, , lists] = useContext(TaskContext);
+
+  useEffect(()=> {
+    setTasklist(lists.find(l=> l.key == listKey.listKey))
+  },[])
+
+  return(
+    <div className="flex border-r p-1 mr-2">
+      <span className={`${tasklist.color} w-3.5 h-3.5 rounded mr-2`}/>
+      <p className="mr-2">{tasklist.name}</p>
     </div>
   )
 }

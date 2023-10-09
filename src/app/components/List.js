@@ -1,5 +1,5 @@
 "use client"
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import TaskContext from "../TaskContext";
 
 const List = (details) => {
@@ -10,13 +10,6 @@ const List = (details) => {
   const deleteList = (id) => {
     setLists(lists => lists.filter((list) => list.key != id))
   }
-
-  useEffect(() => {
-    const lists = JSON.parse(localStorage.getItem('lists'));
-    if (lists) {
-     setLists(lists);
-    }
-  }, []);
 
   return(
     <li className='flex justify-between text-center my-2'>
