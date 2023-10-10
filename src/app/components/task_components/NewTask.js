@@ -1,6 +1,6 @@
 'use client'
 import { useState, useContext, useEffect } from "react";
-import TaskContext from "../TaskContext";
+import TaskContext from "../../TaskContext";
 import { v4 } from 'uuid';
 
 const NewTask= ({details, onClose}) => {

@@ -1,6 +1,6 @@
 "use client"
 import { useContext } from "react";
-import TaskContext from "../TaskContext";
+import TaskContext from "../../TaskContext";
 
 const List = (details) => {
   const [, , lists, setLists] = useContext(TaskContext);

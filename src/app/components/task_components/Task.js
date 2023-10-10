@@ -1,10 +1,8 @@
 'use client'
 import { useContext, useEffect, useState } from "react";
-import TaskContext from "../TaskContext";
+import TaskContext from "../../TaskContext";
 
 const Task = ({task, onEdit}) => {
-  // details = task;
-
   return(
     <div className="flex justify-between px-5 py-3 border-b" onClick={()=>onEdit()}>
       <div className="flex items-baseline">
