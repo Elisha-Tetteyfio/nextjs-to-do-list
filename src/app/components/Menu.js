@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import TaskContext from "../TaskContext";
 import List from "./list_components/List";
 import ListForm from "./list_components/ListForm";
-import Tab from "./Tab";
+import Tabs from "./tab_components/Tabs";
 
 const Menu = () => {
   const [, , lists, setLists] = useContext(TaskContext);
@@ -29,32 +29,7 @@ const Menu = () => {
       <hr/>
       <div className='mt-5'>
         <h6 className='text-xs font-medium'>TASKS</h6>
-        <ul>
-          <Tab 
-            details={{name:"Upcoming", count:"0", icon:"bi-chevron-double-right"}}
-            key="tab-upcoming"
-            isHighlighted={currentTab=="tab-upcoming"}
-            onSelect={()=>changeTab("tab-upcoming")}
-          />
-          <Tab 
-            details={{name:"Today", count:"0", icon:"bi-list-check"}}
-            key="tab-today"
-            isHighlighted={currentTab=="tab-today"}
-            onSelect={()=>changeTab("tab-today")}
-          />
-          <Tab 
-            details={{name:"Calendar", icon:"bi-calendar3"}}
-            key="tab-calendar"
-            isHighlighted={currentTab=="tab-calendar"}
-            onSelect={()=>changeTab("tab-calendar")}
-          />
-          <Tab 
-            details={{name:"Sticky wall", icon:"bi-sticky-fill"}}
-            key="tab-sticky"
-            isHighlighted={currentTab=="tab-sticky"}
-            onSelect={()=>changeTab("tab-sticky")}
-          />
-        </ul>
+        <Tabs />
       </div>
       <hr className='mt-5'/>
       <div className='mt-5'>

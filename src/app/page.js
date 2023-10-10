@@ -13,14 +13,6 @@ export default function Home() {
     setShowNewTask(true)
   }
 
-  const hide_new = () => {
-    setShowNewTask(false)
-  }
-
-  const addTask = (task) => {
-    setTasks([...tasks, task]);
-  };
-
   useEffect(() => {
     const tasks = JSON.parse(localStorage.getItem('tasks'));
     if (tasks) {
