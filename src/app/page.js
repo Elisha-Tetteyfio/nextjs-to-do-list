@@ -38,6 +38,11 @@ export default function Home() {
             <Task task={task} key={task.key} onEdit={() => show_new(task)}/>
           )
         }
+        {
+          tasks.map(task=>
+            <Task task={task} key={task.key} onEdit={() => show_new(task)}/>
+          )
+        }
       </div>
       {/* New task side bar */}
       {

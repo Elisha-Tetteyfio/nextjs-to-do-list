@@ -1,11 +1,9 @@
 import { useContext, useState } from "react";
 import Tab from "./Tab";
-import { todayTask } from "@/app/filters";
+import { completeTask, pendingTask, todayTask } from "@/app/filters";
 import TaskContext from "@/app/TaskContext";
-// import TaskContext from "@/app/contexts/TaskContext";
 
 const Tabs = () => {
-  // const [tasks] = useContext(TaskContext);
   const [tasks] = useContext(TaskContext)
   const [currentTab, setCurrentTab] = useState("tab-today");
 
@@ -18,6 +16,12 @@ const Tabs = () => {
   }
   const countAllTasks = () => {
     return tasks.length
+  }
+  const countCompleteTask = () => {
+    return completeTask(tasks).length
+  }
+  const countPendingTask = () => {
+    return pendingTask(tasks).length
   }
 
   return(
@@ -35,13 +39,13 @@ const Tabs = () => {
         onSelect={()=>changeTab("tab-today")}
       />
       <Tab 
-        details={{name:"Completed", icon:"bi-check2-square"}}
+        details={{name:"Completed", count:countCompleteTask(), icon:"bi-check2-square"}}
         key="tab-calendar"
         isHighlighted={currentTab=="tab-calendar"}
         onSelect={()=>changeTab("tab-calendar")}
       />
       <Tab 
-        details={{name:"Pending", icon:"bi-clock"}}
+        details={{name:"Pending", count:countPendingTask(), icon:"bi-clock"}}
         key="tab-sticky"
         isHighlighted={currentTab=="tab-sticky"}
         onSelect={()=>changeTab("tab-sticky")}
