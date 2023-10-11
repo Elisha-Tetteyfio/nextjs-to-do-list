@@ -19,13 +19,16 @@ const NewTask= ({details, onClose}) => {
 
   function handleSubmit(e) {
     e.preventDefault()
-    addTask({
+    const data = {
       title: title,
       description: description,
       list: list,
       date: date,
-      key: v4()
-    })
+      completed: details?.completed || false,
+      key: details?.key || v4()
+    }
+
+    details? updateTask(details.key, data) : addTask(data)
   }
 
   const addTask = (task) => {
@@ -37,6 +40,19 @@ const NewTask= ({details, onClose}) => {
     onClose()
     setTasks(tasks.filter(item => item.key !== id))
   }
+
+  const updateTask = (key, newValues) => {
+    onClose();
+    const update = [...tasks];
+    let itemIndex = update.findIndex((item) => item.key === key);
+  
+    if (itemIndex !== -1) {
+      const updatedItem = { ...update[itemIndex], ...newValues };
+      update[itemIndex] = updatedItem;
+      setTasks(update);
+    }
+  }
+  
 
   // add to local storage
   useEffect(() => {
