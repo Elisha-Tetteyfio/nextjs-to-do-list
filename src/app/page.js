@@ -1,16 +1,33 @@
 'use client'
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { NewTask, Task } from './components'
 import TaskContext from './TaskContext';
+import { getCompleteTask, getPendingTask, getTodayTask } from './filters';
 
 export default function Home() {
   const [showNewTask, setShowNewTask] = useState(false);
-  const [tasks, setTasks, lists] = useContext(TaskContext);
+  const [tasks, setTasks, , , activeTab] = useContext(TaskContext);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [displayTask, setDisplayTask] = useState(getTodayTask(tasks));
 
   const show_new=(task)=>{
     setSelectedTask(task)
     setShowNewTask(true)
+  }
+
+  const filterTasks = () =>{
+    if(activeTab == "tab-today"){
+      setDisplayTask(getTodayTask(tasks))
+    } 
+    else if (activeTab == "tab-completed"){
+      setDisplayTask(getCompleteTask(tasks))
+    }
+    else if (activeTab == "tab-pending"){
+      setDisplayTask(getPendingTask(tasks))
+    }
+    else if (activeTab == "tab-alltasks"){
+      setDisplayTask(tasks)
+    }
   }
 
   useEffect(() => {
@@ -19,6 +36,11 @@ export default function Home() {
      setTasks(tasks);
     }
   }, []);
+
+  useEffect(()=>{
+    setShowNewTask(false)
+    filterTasks()
+  }, [activeTab])
 
   return (
     <main className="w-9/12 flex">
@@ -34,14 +56,14 @@ export default function Home() {
           </button>
         </div>
         {
-          tasks.map(task=>
+          displayTask.map(task=>
             <Task task={task} key={task.key} onEdit={() => show_new(task)}/>
           )
         }
         {
-          tasks.map(task=>
-            <Task task={task} key={task.key} onEdit={() => show_new(task)}/>
-          )
+          // No task to display
+          displayTask.length == 0 &&
+          <div className='mt-8 italic text-xl text-center text-gray-300'>No tasks to display</div>
         }
       </div>
       {/* New task side bar */}

@@ -7,13 +7,8 @@ import ListForm from "./list_components/ListForm";
 import Tabs from "./tab_components/Tabs";
 
 const Menu = () => {
-  const [, , lists, setLists] = useContext(TaskContext);
+  const [, , lists] = useContext(TaskContext);
   const [showAddList, setShowAddList] = useState(false);
-  const [currentTab, setCurrentTab] = useState("tab-today");
-
-  const changeTab = (tabKey) => {
-    setCurrentTab(tabKey)
-  }
 
   const add_list_menu = () => setShowAddList(true);
 

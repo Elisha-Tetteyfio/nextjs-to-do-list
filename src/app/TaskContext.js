@@ -11,9 +11,10 @@ export const TaskProvider = ({ children }) => {
 
   const [tasks, setTasks] = useState(storedTasks);
   const [lists, setLists] = useState(storedLists);
+  const [activeTab, setActiveTab] = useState("tab-today");
 
   return (
-    <TaskContext.Provider value={[ tasks, setTasks, lists, setLists ]}>
+    <TaskContext.Provider value={[ tasks, setTasks, lists, setLists, activeTab, setActiveTab ]}>
       {children}
     </TaskContext.Provider>
   );

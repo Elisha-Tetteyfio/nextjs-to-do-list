@@ -1,54 +1,53 @@
 import { useContext, useState } from "react";
 import Tab from "./Tab";
-import { completeTask, pendingTask, todayTask } from "@/app/filters";
+import { getCompleteTask, getPendingTask, getTodayTask } from "@/app/filters";
 import TaskContext from "@/app/TaskContext";
 
 const Tabs = () => {
-  const [tasks] = useContext(TaskContext)
-  const [currentTab, setCurrentTab] = useState("tab-today");
+  const [tasks, , , , activeTab, setActiveTab] = useContext(TaskContext)
 
   const changeTab = (tabKey) => {
-    setCurrentTab(tabKey)
+    setActiveTab(tabKey)
   }
 
   const countTodayTask = () => {
-    return todayTask(tasks).length
+    return getTodayTask(tasks).length
   }
   const countAllTasks = () => {
     return tasks.length
   }
   const countCompleteTask = () => {
-    return completeTask(tasks).length
+    return getCompleteTask(tasks).length
   }
   const countPendingTask = () => {
-    return pendingTask(tasks).length
+    return getPendingTask(tasks).length
   }
 
   return(
     <ul>
       <Tab
         details={{name:"All tasks", count:countAllTasks(), icon:"bi-chevron-double-right"}}
-        key="tab-upcoming"
-        isHighlighted={currentTab=="tab-upcoming"}
-        onSelect={()=>changeTab("tab-upcoming")}
+        key="tab-alltasks"
+        isHighlighted={activeTab=="tab-alltasks"}
+        onSelect={()=>changeTab("tab-alltasks")}
       />
       <Tab 
         details={{name:"Today", count:countTodayTask(), icon:"bi-list-check"}}
         key="tab-today"
-        isHighlighted={currentTab=="tab-today"}
+        isHighlighted={activeTab=="tab-today"}
         onSelect={()=>changeTab("tab-today")}
       />
       <Tab 
         details={{name:"Completed", count:countCompleteTask(), icon:"bi-check2-square"}}
-        key="tab-calendar"
-        isHighlighted={currentTab=="tab-calendar"}
-        onSelect={()=>changeTab("tab-calendar")}
+        key="tab-completed"
+        isHighlighted={activeTab=="tab-completed"}
+        onSelect={()=>changeTab("tab-completed")}
       />
       <Tab 
         details={{name:"Pending", count:countPendingTask(), icon:"bi-clock"}}
-        key="tab-sticky"
-        isHighlighted={currentTab=="tab-sticky"}
-        onSelect={()=>changeTab("tab-sticky")}
+        key="tab-pending"
+        isHighlighted={activeTab=="tab-pending"}
+        onSelect={()=>changeTab("tab-pending")}
       />
     </ul>
   )
