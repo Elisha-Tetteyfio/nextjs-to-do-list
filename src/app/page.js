@@ -42,6 +42,10 @@ export default function Home() {
     filterTasks()
   }, [activeTab])
 
+  useEffect(()=>{
+    filterTasks()
+  }, [tasks])
+
   return (
     <main className="w-9/12 flex">
       {/* Main screen */}
