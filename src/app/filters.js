@@ -10,3 +10,7 @@ export function getPendingTask(tasks) {
   const newtasks = tasks.filter((task)=> task.completed == false)
   return newtasks
 }
+export function getListTask(tasks, listKey) {
+  const newtasks = tasks.filter((task)=> task.list == listKey)
+  return newtasks
+}

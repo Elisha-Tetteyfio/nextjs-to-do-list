@@ -2,7 +2,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { NewTask, Task } from './components'
 import TaskContext from './TaskContext';
-import { getCompleteTask, getPendingTask, getTodayTask } from './filters';
+import { getCompleteTask, getListTask, getPendingTask, getTodayTask } from './filters';
 
 export default function Home() {
   const [showNewTask, setShowNewTask] = useState(false);
@@ -28,6 +28,9 @@ export default function Home() {
     else if (activeTab == "tab-alltasks"){
       setDisplayTask(tasks)
     }
+    else{
+      setDisplayTask(getListTask(tasks, activeTab))
+    }
   }
 
   useEffect(() => {
@@ -51,7 +54,7 @@ export default function Home() {
       {/* Main screen */}
       <div className='w-full px-5'>
         <div className="text-3xl font-bold">
-          Today
+          Todo list
         </div>
         <div className='mt-8'>
           <button className='border w-full h-[45px] rounded flex items-baseline my-2' onClick={() =>show_new()}>
