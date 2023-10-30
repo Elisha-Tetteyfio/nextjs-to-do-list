@@ -67,8 +67,8 @@ export default function Home() {
             <Task task={task} key={task.key} onEdit={() => show_new(task)}/>
           )
         }
+        {/* No task to display */}
         {
-          // No task to display
           displayTask.length == 0 &&
           <div className='mt-8 italic text-xl text-center text-gray-300'>No tasks to display</div>
         }
